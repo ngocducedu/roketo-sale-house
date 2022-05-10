@@ -22,7 +22,7 @@ function Mint() {
     const [tokenTitle, setTokenTitle] = useState("");
     const [description, setDescription] = useState("");
     const [media, setMedia] = useState("");
-
+    const [balanceWrap, setBalanceWrap] =useState(0);
    const [nfts, setNFTs] = useState([]);
     const [male, setMale] = useState();
     const [female, setFeMale] = useState();
@@ -36,6 +36,12 @@ function Mint() {
     const [fundRaised, setFundRaised] =useState(0);
 
     const [element, setElement] = useState(0)
+
+
+    useEffect(async () => {
+        let balanceWrap  = await window.ftContract.ft_balance_of({account_id: window.accountId})
+            setBalanceWrap(balanceWrap);
+    }, []);
 
     useEffect(async () => {
         if (window.accountId) {
@@ -334,16 +340,7 @@ function Mint() {
     return (
         <div>
             <div className='ticket'>
-                <h1 className='ticket-tts'>Total trees planted : {totalTicket}</h1>
-                <h1 className='ticket-near'>Fund Raised: {parseFloat(utils.format.formatNearAmount(fundRaised.total)).toFixed(3)} Ⓝ </h1>  
-                <div className='ticket-link' >
-                    <a href="https://explorer.testnet.near.org/accounts/plant-tree-fund.louiskate.testnet" target="_blank">Check Transactions</a>
-                </div>   
-                <div className='ticket-guild'>
-                    Mint Tree NFT: 1 Ⓝ. <br/>
-                    Ⓝ will be transferred to the world tree planting fund.<br/>
-                  
-                </div>     
+                <h1 className='ticket-tts'>Your WNEAR Balance : {parseFloat(utils.format.formatNearAmount(balanceWrap)).toFixed(3)} wⓃ</h1>   
             </div>
             <div className='mint'>
                 {console.log(element)}

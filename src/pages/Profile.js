@@ -36,7 +36,7 @@ function Profile() {
     [<FrownOutlined style={{color:"rgb(225 14 149)"}}/>,<FrownOutlined style={{color:"rgb(225 14 149)"}}/>,<FrownOutlined style={{color:"rgb(225 14 149)"}}/>,<FrownOutlined style={{color:"rgb(229 162 205)"}} />],
     [<FrownOutlined style={{color:"rgb(225 14 149)"}}/>,<FrownOutlined style={{color:"rgb(225 14 149)"}}/>,<FrownOutlined style={{color:"rgb(225 14 149)"}}/>,<FrownOutlined style={{color:"rgb(225 14 149)"}}/>,],
     ];
-   
+    const [balanceWrap, setBalanceWrap] =useState(0);
    const [nfts, setNFTs] = useState([]);
     const [transferVisible, setTransferVisible] = useState(false);
     const [saleVisible, setSaleVisible] = useState(false);
@@ -48,6 +48,11 @@ function Profile() {
     const [fundRaised, setFundRaised] =useState(0);
     const [streamAccount, setStreamAccount] = useState([]);
 
+    useEffect(async () => {
+        let balanceWrap  = await window.ftContract.ft_balance_of({account_id: window.accountId})
+            setBalanceWrap(balanceWrap);
+    }, []);
+    
     useEffect(async () => {
         if (window.accountId) {
             let dataStream  = await window.streamContract.get_account_outgoing_streams({"account_id": window.accountId, "from": 0, "limit": 10});
@@ -338,12 +343,7 @@ function Profile() {
         <div>
             {console.log(nfts)}
             <div className='ticket'>
-                <h1 className='ticket-tts'>Total trees planted : {totalTicket}</h1>
-                <h1 className='ticket-near'>Fund Raised: {parseFloat(utils.format.formatNearAmount(fundRaised.total)).toFixed(3)} Ⓝ </h1>  
-                <div className='ticket-link' >
-                    <a href="https://explorer.testnet.near.org/accounts/plant-tree-fund.louiskate.testnet" target="_blank">Check Transactions</a>
-                </div>    
-                  
+                <h1 className='ticket-tts'>Your WNEAR Balance : {parseFloat(utils.format.formatNearAmount(balanceWrap)).toFixed(3)} wⓃ</h1>
             </div>
             <PageHeader
                 className="site-page-header"

@@ -278,7 +278,7 @@ function StreamIncome() {
 
         <Row span={16} >
             <Col span={8}>
-                <div style={{ padding: 30, display: "wrap" }}>
+                <div style={{ padding: 30, display: "wrap" }}>{console.log("dataStream2" , dataStream)}
                     {
                         dataStream.map((item) => {
                             return (
@@ -293,8 +293,8 @@ function StreamIncome() {
                                     ]}
                                 >
                                     <div style={{ fontSize: '20px' }}> Balance: {parseFloat(utils.format.formatNearAmount(item.balance)).toFixed(3)} wⓃ </div>
-                                    
-                                    <Card>
+                
+                                    <Card>{console.log("item" , item)}
                                         Streamed:<Progress percent={((item.tokens_per_sec*(new Date().getTime() - item.timestamp_created/1000000)/1000)/item.balance*100).toFixed(1)}  strokeColor="CornflowerBlue"/>  <br/>
                                         { 
                                             (utils.format.formatNearAmount(item.tokens_per_sec)*(new Date().getTime() - item.timestamp_created/1000000)/1000) > parseFloat(utils.format.formatNearAmount(item.balance))

@@ -284,11 +284,11 @@ function StreamPayout() {
 
     async function handleDeposit() {
         if (window.walletConnection.isSignedIn()) {
-            await window.contractMarket.storage_deposit(
+            await window.ftContract.near_deposit(
                 {
-                    account_id: window.accountId,
+                    
                 },
-                30000000000000,
+                200000000000000,
                 utils.format.parseNearAmount("1")
             )
         } else {
@@ -308,7 +308,7 @@ function StreamPayout() {
                 className="site-page-header"
                 title="My Stream Payout"
                 extra={[
-                    <Button onClick={handleDeposit} key="4">Deposit Storage</Button>,
+                    <Button onClick={handleDeposit} key="4">Register Wrap</Button>,
                 ]}
             />
 
